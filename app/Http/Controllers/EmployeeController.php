@@ -11,6 +11,7 @@ class EmployeeController extends Controller
 {
 
     private $employeeService;
+    private $employeeNotFountErrorMessage = 'Employee iether delete or does not exists in the database!';
 
     public function __construct(EmployeeService $employeeService)
    {
@@ -58,7 +59,11 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        return $this->employeeService->getSingleEmployee($id);
+        $employee = $this->employeeService->getSingleEmployee($id);
+        if(empty($employee)){
+            return $this->responseReturn(false,'',$this->employeeNotFountErrorMessage);
+        }
+        return $employee;
     }
 
     /**
@@ -96,7 +101,6 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        $this->checkIsExistEmployee($id);
         $successMessage = 'Employee Deletetd Successfully!';
         $errorMessage = 'Employee not Deletetd. Please Try again!';
         return $this->responseReturn($this->employeeService->hardDeleteEmployee($id), $successMessage, $errorMessage);
@@ -111,7 +115,6 @@ class EmployeeController extends Controller
      */
     public function delete($id)
     {
-        $this->checkIsExistEmployee($id);
         $successMessage = 'Employee Deletetd Successfully!';
         $errorMessage = 'Employee not Deletetd. Please Try again!';
         return $this->responseReturn($this->employeeService->softDeleteEmployee($id), $successMessage, $errorMessage);

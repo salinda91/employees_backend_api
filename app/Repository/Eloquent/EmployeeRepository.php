@@ -21,7 +21,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
                ->orWhere('last_name','LIKE','%'.$search.'%')
                ->orWhere('emp_id','LIKE','%'.$search.'%');
      }
-     return $employee->get();
+     return $employee->where('deleted',0)->get();
         
    }
 
@@ -34,6 +34,7 @@ class EmployeeRepository implements EmployeeRepositoryInterface
    public function single($id){
           return Employee::where('id',$id)
                ->with(['designation','department','country'])
+               ->where('deleted',0)
                ->first();
    }
    
