@@ -47,7 +47,8 @@ class EmployeeController extends Controller
     {
         $successMessage = 'Employee Saved Successfully!';
         $errorMessage = 'Employee not Saved. Please Try again!';
-        return $this->responseReturn($this->employeeService->storeEmployees($request->all()), $successMessage, $errorMessage);
+        $response = $this->employeeService->storeEmployees($request->all());
+        return $this->responseReturn(!empty($response), $successMessage, $errorMessage);
         
     }
 
