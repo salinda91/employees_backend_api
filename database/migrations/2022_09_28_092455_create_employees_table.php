@@ -19,10 +19,16 @@ class CreateEmployeesTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->unsignedBigInteger('designation_id');
-            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('cascade');
+            $table->foreign('designation_id')->references('id')->on('designations');
             $table->unsignedBigInteger('department_id');
-            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments');
             $table->date('join_date');
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->date('date_of_birth')->nullable();
+            $table->unsignedBigInteger('country_id');
+            $table->foreign('country_id')->references('id')->on('countries');
+            $table->string('passport_number');
             $table->timestamps();
         });
     }
