@@ -29,6 +29,7 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('country_id');
             $table->foreign('country_id')->references('id')->on('countries');
             $table->string('passport_number');
+            $table->tinyInteger('deleted')->default(0);
             $table->timestamps();
         });
     }

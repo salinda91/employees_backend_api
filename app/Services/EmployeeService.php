@@ -27,5 +27,33 @@ class EmployeeService{
      return $this->employeeRepository->store($request);
    }
 
+   public function getSingleEmployee($id)
+   {
+    return $this->employeeRepository->single($id);
+   }
+
+   public function updateEmployees($request,$id)
+   {
+    return $this->employeeRepository->update($request,$id);
+   }
+
+   public function hardDeleteEmployee($id)
+   {
+    return $this->employeeRepository->hardDelete($id);
+   }
+
+   public function softDeleteEmployee($id)
+   {
+    return $this->employeeRepository->softDelete($id);
+   }
+
+   public function isExistsEmployee($id)
+   {
+    if($this->employeeRepository->single($id)){
+      return true;
+    }else{
+      return false;
+    }    
+   }
 
 }

@@ -23,8 +23,8 @@ class Employee extends Model
         return $this->hasOne('App\Models\Department', 'id', 'department_id');
     }
 
-    public function personalDetail()
+    public function country()
     {
-        return $this->belongsTo('App\Models\EmployeesPersonalDetail');
+        return $this->hasOne('App\Models\Country', 'id', 'country_id');
     }
 }

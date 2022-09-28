@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EmployeeRegistrationRequest;
+use App\Http\Requests\EmployeeUpdateRequest;
 use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 
@@ -57,7 +58,7 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        return $this->employeeService->getSingleEmployee($id);
     }
 
     /**
@@ -78,9 +79,13 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EmployeeUpdateRequest $request, $id)
     {
-        //
+        
+        $successMessage = 'Employee Updated Successfully!';
+        $errorMessage = 'Employee not Updated. Please Try again!';
+        return $this->responseReturn($this->employeeService->updateEmployees($request->except('id'),$id), $successMessage, $errorMessage);
+        
     }
 
     /**
@@ -91,7 +96,26 @@ class EmployeeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->checkIsExistEmployee($id);
+        $successMessage = 'Employee Deletetd Successfully!';
+        $errorMessage = 'Employee not Deletetd. Please Try again!';
+        return $this->responseReturn($this->employeeService->hardDeleteEmployee($id), $successMessage, $errorMessage);
+        
+    }
+
+     /**
+     * soft delete.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        $this->checkIsExistEmployee($id);
+        $successMessage = 'Employee Deletetd Successfully!';
+        $errorMessage = 'Employee not Deletetd. Please Try again!';
+        return $this->responseReturn($this->employeeService->softDeleteEmployee($id), $successMessage, $errorMessage);
+        
     }
 
     private function responseReturn($response, $successMessage, $errorMessage){
@@ -104,4 +128,5 @@ class EmployeeController extends Controller
             'message'   => $message
         ]);
     }
+
 }
