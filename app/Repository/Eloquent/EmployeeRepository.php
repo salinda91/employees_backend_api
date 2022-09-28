@@ -9,10 +9,19 @@ use Illuminate\Support\Collection;
 class EmployeeRepository implements EmployeeRepositoryInterface
 {
 
-   public function all() : Collection
+   public function all($options) : Collection
    {
-        return Employee::with(['designation','department','country'])
-               ->get();
+     $search = null;
+     if(array_key_exists('search',$options)){
+          $search = $options['search'];
+     }
+     $employee = Employee::with(['designation','department','country']);
+     if(!empty($search)){
+          $employee->where('first_name','LIKE','%'.$search.'%')
+               ->orWhere('last_name','LIKE','%'.$search.'%')
+               ->orWhere('emp_id','LIKE','%'.$search.'%');
+     }
+     return $employee->get();
         
    }
 

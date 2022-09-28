@@ -19,7 +19,7 @@ class EmployeeService{
 
    public function getAllEmployees($options=[])
    {
-     return $this->employeeRepository->all();
+     return $this->employeeRepository->all($options);
    }
 
    public function storeEmployees($request)

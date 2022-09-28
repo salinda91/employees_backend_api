@@ -5,7 +5,7 @@ use Illuminate\Support\Collection;
 
 interface EmployeeRepositoryInterface
 {
-   public function all() :Collection;
+   public function all($options) :Collection;
    public function store($data);
    public function single($id);
    public function update($data,$id);
