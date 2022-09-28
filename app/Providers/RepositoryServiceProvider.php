@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Repository\Eloquent\EmployeeRepository;
+use App\Repository\Eloquent\UserRepository;
 use App\Repository\EmployeeRepositoryInterface;
+use App\Repository\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -16,6 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(EmployeeRepositoryInterface::class, EmployeeRepository::class);
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     /**

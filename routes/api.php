@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+//secured APIs
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::resource('/employee',EmployeeController::class);
+    Route::delete('/employee/{id}/delete',[EmployeeController::class,'delete']);
+    //user Logout
+    Route::post('/logout',[AuthController::class,'logout']);
 });
 
-Route::resource('/employee',EmployeeController::class);
-Route::delete('/employee/{id}/delete',[EmployeeController::class,'delete']);
+//public APIs
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login', [AuthController::class, 'loginUser']);
