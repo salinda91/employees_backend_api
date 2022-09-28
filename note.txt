@@ -1,0 +1,8 @@
+Migrations
+
+php artisan migrate --path=database/migrations/2022_09_28_095106_create_countries_table.php
+php artisan migrate --path=database/migrations/2022_09_28_095143_create_departments_table.php
+php artisan migrate --path=database/migrations/2022_09_28_095159_create_designations_table.php
+php artisan migrate --path=database/migrations/2022_09_28_092455_create_employees_table.php
+php artisan migrate --path=database/migrations/2022_09_28_095045_create_employees_personal_details_table.php
+
